@@ -1,0 +1,24 @@
+---
+title: "Exercise 3"
+author: "Angel Mary Lanquibo"
+date: "2026-10-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+----------------------------------------------
+
+Part A — Creating Vectors: c(), seq(), rep().
+
+TODO: Create a numeric vector called scores containing: 88, 92, 79, 95, 84. Then create a character vector called subjects containing: "Math", "Science", "English", "History", "PE".
+
+```{r}
+
+scores <- c(88, 92, 79, 95, 84)
+
+subjects <- c("Math", "Science", "English", "History", "PE")
+
+```
+
