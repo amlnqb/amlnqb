@@ -1,0 +1,308 @@
+---
+title: 'Exercise #2'
+author: "Angel Mary Lanquibo"
+date: "2026-09-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------
+
+Part A — Arithmetic Operations.
+
+TODO: Store 17 in a variable called a, and 5 in a variable called b, then print the results of: a + b, a - b, a * b, a / b.
+
+```{r}
+
+a <- 17
+b <- 5
+
+a + b
+a - b
+a * b
+a / b
+
+```
+
+TODO: Using the same a and b, compute and print a %% b and a %/% b.
+  a %% b = remainder of a / b.
+  a %/% b = whole-number (integer) division.
+
+```{r}
+
+a %% b
+a %/% b
+
+```
+
+TODO: Print 2 raised to the power of 10 using the ^ operator.
+
+```{r}
+
+2 ^ 10
+
+```
+Question #1: Run 17 / 5, 17 %% 5, and 17 %/% 5 side by side. In your own words, explain how these three results relate to each other mathematically.
+
+My Answer: 
+
+  These three results are related because they represent different parts of a standard long division problem. The expression 17 / 5 gives the complete decimal answer of 3.4. In contrast, 17 %/% 5 ignores the decimal and only tells us that 5 fits into 17 a total of 3 full times. The final expression, 17 %% 5, tells us that there is a remainder of 2 left over. Together, they prove that 3 groups of 5, plus the leftover 2, equal 17.
+  
+
+```{r}
+
+a <- 10 
+b <- 3
+
+a %% b
+a %/% b
+
+```
+
+  
+  
+Question #2: Predict the output of 10 %% 3 and 10 %/% 3 before running the code. Were you correct? If not, explain what you misunderstood.
+
+  Before running the code, I predicted that 10 %% 3 would equal 1 because 3 goes into 10 three times with a remainder of 1. I also predicted that 10 %/% 3 would equal 3 because it only counts the whole number of times 3 fits into 10. After running the code, I was completely correct. The outputs matched my predictions perfectly because I understood that the %/% operator completely drops the decimal part and only gives the whole number.
+
+------------------------------------------------------
+
+Part B — Basic Data Types: typeof(), class(), and mode().
+
+TODO: Use typeof() to check the type of each of x, y, z, w, v.
+
+```{r}
+
+x <- 42
+y <- 42L       
+z <- "42"
+w <- TRUE
+v <- 3 + 2i   
+
+typeof(x)
+typeof(y)
+typeof(z)
+typeof(w)
+typeof(v)
+
+```
+TODO: Use class() to check the class of each of x, y, z, w, v.
+
+```{r}
+
+x <- 42
+y <- 42L       
+z <- "42"
+w <- TRUE
+v <- 3 + 2i   
+
+class(x)
+class(y)
+class(z)
+class(w)
+class(v)
+
+```
+TODO: Use mode() to check the class of each of x, y, z, w, v.
+
+```{r}
+
+x <- 42
+y <- 42L       
+z <- "42"
+w <- TRUE
+v <- 3 + 2i   
+
+mode(x)
+mode(y)
+mode(z)
+mode(w)
+mode(v)
+
+```
+Question #3): x <- 42 and y <- 42L look almost identical, but typeof(x) and typeof(y) give different answers. Explain the difference in your own words.
+
+  Even though both numbers look the same, R stores them differently because of the letter L. When I type x <- 42, R automatically saves it as a double, which means it treats it as a decimal number even if we do not see a decimal point. However, when I add the L to make y <- 42L, I am explicitly telling R to save it as an integer, which means it is treated strictly as a whole number. Therefore, typeof(x) returns "double" while typeof(y) returns "integer" because of how R manages computer memory for numbers.
+
+
+Question #4: Is typeof() ever different from class() and from mode() for the same object? Look at your results above and explain any case where this happens (or, if you did not see one, explain what you would expect for a matrix or factor).
+
+  Yes, typeof() can definitely be different from class() and mode() for the same object. Looking at my results above, this happens clearly with variable x, where typeof(x) is "double" but class(x) and mode(x) are both "numeric". It also happens with variable y, where typeof(y) is "integer" but its mode(y) is still "numeric". If we used a special object like a factor, typeof() would show "integer" because of how it is built underneath, but class() would show "factor" to tell us how it behaves.
+  
+------------------------------------------------------
+
+Part C — Type Conversion (20 min).
+
+num_string <- "123".
+
+TODO: Convert num_string to a numeric value using as.numeric(), then check its type with typeof(), class(), and mode().
+
+```{r}
+
+num_string <- "123"
+num_value <- as.numeric(num_string)
+
+typeof(num_value)
+class(num_value)
+mode(num_value)
+
+```
+TODO: Convert the number 0 and the number 1 to logical using as.logical(). What do you get?
+  
+```{r}
+
+as.logical(0)
+as.logical(1)
+
+```
+
+TODO: Try converting bad_string to numeric using as.numeric(). Run this chunk and observe the warning message and the result.
+
+```{r}
+
+bad_string <- "hello123"
+as.numeric(bad_string)
+
+```
+
+Question #5: When you ran the conversion-fail chunk, R produced NA and a warning instead of stopping with an error. 
+
+Why do you think R is designed to give a warning here rather than crashing the whole script?
+
+  I think R gives a warning instead of stopping the whole script because it allows the program to continue running even if one value cannot be converted. R changes the invalid value into NA, which means the value is missing or not available. This is helpful because the program can still process other values. The warning also informs the user that something went wrong during the conversion.
+
+What are the risks of this behavior if you don’t read your warnings?
+
+  If I do not read the warnings, I might not notice that some values were converted into NA. This can lead to incorrect results in my calculations or analysis. For example, if I am working with a large dataset, I might think all the values are valid numbers when some of them are actually missing. This could affect my conclusions and cause me to make wrong decisions based on the data.
+
+
+Question #6: as.logical(0) and as.logical(1) convert to FALSE and TRUE.
+
+What do you think as.logical(2) and as.logical(-1)` will produce?
+
+  I think as.logical(2) and as.logical(-1) will both produce TRUE because both numbers are not equal to zero.
+
+Test it, then explain the rule R seems to be following.
+  
+```{r}
+
+as.logical(2)
+as.logical(-1)
+
+```
+  Based on the results, R follows a simple rule when converting numbers to logical values. The number 0 becomes FALSE, while any non-zero number, whether positive or negative, becomes TRUE. This means that 2 and -1 both become TRUE because neither number is zero.
+
+------------------------------------------------------
+
+Part D — Strings, paste(), and paste0().
+
+
+TODO: Print first_name and last_name using print() and/or cat().
+
+
+```{r}
+
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+#Using Print():
+
+print(first_name)
+print(last_name)
+
+#Using Cat():
+
+cat(first_name, last_name)
+
+```
+TODO: Use paste() to combine first_name and last_name into a full name. TODO: Use paste0() to do the same, and compare the two results.
+
+
+```{r}
+
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+#Using the paste() to combine the names:
+paste(first_name, last_name)
+
+#Using the paste0() to combine the names:
+paste0(first_name, last_name)
+
+```
+
+TODO: Use paste() with the argument sep = "-" to join first_name and last_name with a dash instead of a space.
+
+```{r}
+
+first_name <- "Juan"
+last_name <- "Dela Cruz"
+
+paste(first_name, last_name, sep = "-")
+
+```
+TODO: Use paste0() to build the sentence: "Juan Dela Cruz is 21 years old." by combining full_name, age, and text.
+
+```{r}
+
+full_name <- "Juan Dela Cruz"
+age <- 21
+
+paste0(full_name, " is ", age, " years old.")
+
+```
+
+Question #7: paste() and paste0() produced different results for the same two strings. Explain exactly why, referencing what each function does by default.
+
+  The paste() and paste0() functions produced different results because they handle spaces differently by default. The paste() function adds a space between strings when combining them. For example, combining "Juan" and "Dela Cruz" using paste() produces "Juan Dela Cruz". On the other hand, the paste0() function combines strings without adding a space between them. It produces "JuanDela Cruz". If I want to use paste0() and include a space, I need to add the space manually between the strings.
+
+
+
+Question #8: In the strings-numbers chunk, you combined a character string with a numeric variable (age) using paste0() without first converting age to a string.
+
+Did this cause an error? Explain what paste0() does internally to make this work, and how it relates to the type conversions you practiced in Part C.
+
+  No, combining a character string with a numeric variable using paste0() did not cause an error. The paste0() function automatically converts the numeric value into a character string before combining it with the other text. For example, the number 21 becomes the character "21", allowing R to combine it with the name and other words to form the sentence "Juan Dela Cruz is 21 years old." This relates to the type conversions I practiced in Part C because R can convert values from one data type to another. In this case, paste0() handles the conversion automatically, so I do not need to use as.character() myself.
+
+------------------------------------------------------
+
+Part E — Critical Thinking Challenge.
+
+TODO: Predict, then test: what is the result of "5" + 5 in R? Run it and read the error message carefully.
+
+```{r}
+
+"5" + 5
+
+```
+
+TODO: Now fix the code above so that "5" + 5 correctly evaluates to 10 using an appropriate conversion function.
+
+```{r}
+
+as.numeric("5") + 5
+
+```
+
+Question #9: Some programming languages automatically convert "5" + 5 into 10 without an error. R does not.
+
+Based on what you’ve learned about R’s data types in this lab, why do you think R requires an explicit conversion instead of guessing what the programmer meant?
+
+  I think R requires an explicit conversion because it wants the programmer to be clear about the type of data being used. Even though "5" looks like a number, R treats it as a character string because it has quotation marks. R does not automatically guess what the programmer means because this could cause mistakes in calculations. By requiring an explicit conversion using as.numeric(), R helps the programmer control how data is handled and avoid unexpected results.
+  
+  
+
+Question #10: Suppose a classmate writes a script that reads a column of “numbers” from a text file. The column looks numeric, but when they try sum() on it, R throws an error. Based on everything in this lab (types, typeof()/class()/mode(), conversion, warnings), write a short paragraph explaining what likely went wrong and the steps you’d take to diagnose and fix it.
+
+  The problem likely happened because the column of numbers was read as character strings instead of numeric values. Even though the values look like numbers, R may treat them as text, so the sum() function cannot add them correctly. First, I would use typeof(), class(), or mode() to check the data type of the column. If the column contains character strings, I would use as.numeric() to convert them into numbers. I would also check for warnings and NA values because some entries might contain letters, spaces, or other invalid characters that prevent conversion. After checking and fixing these values, I would run sum() again to make sure the calculation works correctly.
+
+------------------------------------------------------
+
+CONCLUSION:
+
+In 3–4 sentences, summarize what you learned about how R handles different data types, and why understanding typeof()/class() and conversion functions matters before doing arithmetic or combining data.
+
+  In this exercise, I learned that R has different data types, such as numeric, integer, character, logical, and complex, and each type affects how values are stored and used. I learned that typeof(), class(), and mode() help me understand the type of data I am working with. I also learned that conversion functions like as.numeric(), as.logical(), and as.character() help change data into the correct type, while warnings can tell me when a conversion fails. Understanding data types and conversions is important because it helps me avoid errors when doing arithmetic, combining strings, and analyzing data in R.
