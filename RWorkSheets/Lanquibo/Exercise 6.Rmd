@@ -195,6 +195,118 @@ str() and summary() both describe a data frame, but they show different informat
 ----------------------------------------------------------------------
 Part D — Data Frame Operations.
 
+TODO: Add a new column called year_level to students with values: 2, 3, 1, 4, 2  (one per student, in the same order as the rows).
+
+```{r}
+
+students$year_level <- c(2, 3, 1, 4, 2)
+
+```
+
+TODO: Remove the "passed" column from students by setting it to NULL, students$passed <- NULL.
+
+```{r}
+
+students$passed <- NULL
+
+```
+
+TODO: Sort students by age in ascending order using order(). Hint: students[order(students$age), ].
+
+```{r}
+
+students[order(students$age), ]
+
+```
+
+TODO: Sort students by age in DESCENDING order. Hint: use order(students$age, decreasing = TRUE), or order(-students$age).
+
+```{r}
+
+students[order(students$age, decreasing = TRUE), ]
+
+```
+
+Question #7
+
+After removing the passed column, could you still run the filter from df-logical-filter (students$passed == TRUE)? Explain what happens and why keeping track of a data frame’s current structure matters as you apply a sequence of operations to it.
+
+  No, I could not run that filter anymore because the passed column is already gone from the students data frame. When I try to run students$passed == TRUE, R returns an empty logical vector (logical(0)), which gives a data frame with zero rows instead of filtering the students. Keeping track of the data frame's current structure matters because the next steps in my code depend on the columns that are still there, and deleting a column too early will break any code that needs it later on.
+
+
+
+Question #8
+
+order() does not sort the data frame directly — it returns a vector of row positions. Explain, step by step, how students[order(students$age), ] uses that position vector to reorder the whole data frame (all columns, not just age).
+
+  First, order(students$age) checks the values in the age column and finds their row numbers from the youngest to the oldest, returning a vector of row positions (3, 1, 5, 2, 4). Next, putting that vector before the comma inside students[ , ] tells R to pick the rows in that exact new order. Finally, leaving the space after the comma blank tells R to include all columns for those rows, so the whole data frame gets sorted together.
+
+
+----------------------------------------------------------------------
+Part E — Critical Thinking Challenge.
+
+grades <- data.frame(
+  name = c("Ana", "Ben", "Cid", "Dex", "Eli"),
+  midterm = c(85, 78, 92, 88, 70),
+  final = c(90, 82, 95, 84, 75)
+)
+
+TODO: Add a new column "average" to grades that holds the mean of midterm and final for each student. Hint: (grades$midterm + grades$final) / 2.
+
+```{r}
+
+grades <- data.frame(
+  name = c("Ana", "Ben", "Cid", "Dex", "Eli"),
+  midterm = c(85, 78, 92, 88, 70),
+  final = c(90, 82, 95, 84, 75)
+)
+
+grades$average <- (grades$midterm + grades$final) / 2
+
+```
+
+TODO: Print only the rows of grades where remarks is "Failed", showing just the name and average columns. Hint: grades[grades$remarks == "Failed", c("name", "average")].
+
+```{r}
+
+grades[grades$remarks == "Failed", c("name", "average")]
+
+```
+Question #9
+
+Suppose your instructor wants to know: “Which factor seems more responsible for a student’s final remark — a big drop between midterm and final, or a consistently low midterm score?”.
+
+  Based on the data frame, a consistently low midterm score seems more responsible for a student's final remark because a student who starts with a very low midterm grade has a much harder time reaching a passing average even if their final exam score improves.
+
+
+Using only the tools from this lab (subsetting, new columns, sorting), describe — in plain language, code optional — the steps you would take with grades to start investigating that question.
+
+  First, I would add a new column to the grades data frame that subtracts the midterm score from the final score (grades$final - grades$midterm) so I can see if each student's grade went up or down. Second, I would subset the grades data frame to separate the students who failed (grades$remarks == "Failed") from the students who passed (grades$remarks == "Passed") so I can compare the two groups easily. Third, I would sort the failed group by their midterm scores and then by their new score-difference column using order() to see whether most failing students started with low midterm grades or had a large drop on the final exam.
+
+
+----------------------------------------------------------------------
+CONCLUSION.
+
+  A data frame is R’s main table structure that organizes data into rows and columns. It is essentially a list of equal-length vectors, where each vector acts as a column that can store a different data type while keeping all values inside that single column the same type. Because real-world datasets usually combine different types of information like text, numbers, and logical values in one table, data frames are the most practical structure for data analysis in R.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
