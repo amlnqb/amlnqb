@@ -1,0 +1,8 @@
+"0",""
+"0","sales <- data.frame("
+"0","  employee = c(""Rey"", ""Sam"", ""Tin"", ""Uma"", ""Val""),"
+"0","  units_sold = c(120, 145, 145, 98, 130)"
+"0",")"
+"0",""
+"0","sales$rank <- rank(-sales$units_sold)"
+"0","sales"

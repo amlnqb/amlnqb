@@ -1,0 +1,7 @@
+"0",""
+"0","courses <- data.frame("
+"0","  course_code = c(""IS101"", ""IS102"", ""IS103""),"
+"0","  units = c(3, 3, 2),"
+"0","  instructor = c(""Dr. P. Reyes"", ""Dr. R. Santos"", ""Dr. S. Cruz"")"
+"0",")"
+"0",""

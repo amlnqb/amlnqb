@@ -1,5 +1,5 @@
 ---
-title: "R Lab: Basic Operations - sort(), rank(), and order()."
+title: "Exercise 8: Basic Operations - sort(), rank(), and order()."
 author: "Angel Mary A. Lanquibo"
 date: "2026-11-10"
 output: html_document
@@ -174,8 +174,70 @@ Why is order() the correct tool whenever you need to keep multiple related colum
 
     The order() function is the correct tool when you need to keep multiple related columns lined up because it provides the row index sequence based on one column, allowing you to reorder all rows of the table together so that the relationship between columns remains intact.
 
+Question #8:
+
+TODO: Use rank(scores) and print the result. Print scores, then rank(scores), side by side (e.g., using cbind(scores, rank(scores))) so you can see which score got which rank. Ranking the output for Ben and Dex
+
+```{r}
+
+rank(scores)
+cbind(scores, rank(scores))
+
+```
 
 
+TODO: Look at the rank() output for Ben and Dex. What rank did each of them receive?
+
+  Ben and Dex each received a rank value of 6.5.
+
+
+
+b. Ben and Dex both scored 92, the highest score in the class, but under the default rank() they did NOT both simply get rank “1” or rank “7” as a whole number. Explain exactly what value they received by default and why R computes it that way for tied values.
+
+  They each received a default rank value of **6.5** because R's `rank()` function sorts values in ascending order (from lowest to highest)—placing the two highest scores of 92 in the 6th and 7th positions—and resolves ties using `ties.method = "average"`, which computes the arithmetic mean of their positions (`(6 + 7) / 2 = 6.5`).
+
+
+Question #8:
+
+Create a dataframe. Add a column sales$rank that ranks employees by units_sold, with the TOP seller receiving rank 1.
+
+```{r}
+
+sales <- data.frame(
+  employee = c("Rey", "Sam", "Tin", "Uma", "Val"),
+  units_sold = c(120, 145, 145, 98, 130)
+)
+
+sales$rank <- rank(-sales$units_sold)
+sales
+
+```
+
+
+```{r}
+
+sales[order(sales$units_sold, decreasing = TRUE), ]
+
+```
+
+Reorder the entire sales data frame using order() so it is displayed from HIGHEST units_sold to LOWEST.
+
+(Your answer here)
+
+
+
+Question #9:
+
+In this challenge, you used rank() to determine standing and order() to determine display order.
+
+Could you have used order() alone to solve the entire problem (both awarding ranks AND reordering the table)? 
+
+  No, I could not have used order() alone to solve the entire problem because it cannot properly award ranks to the employees.
+  
+
+Explain what order() is missing that rank() provides, using your own words rather than repeating the definitions
+
+  The order() function only finds the row spots needed to line the table up from top to bottom, which forces one person to be placed ahead of another even if they sold the exact same amount. It is missing the ability to compare the actual sales numbers to see how well everyone did against each other, which rank() provides by giving a fair placement score and properly showing when two people are tied for the same spot.
 
 
 
