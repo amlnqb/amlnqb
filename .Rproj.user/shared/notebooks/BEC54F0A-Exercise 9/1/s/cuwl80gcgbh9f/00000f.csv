@@ -1,0 +1,3 @@
+"0",""
+"0","shoes_data <- read.csv(""shoesize.csv"")"
+"0","tail(shoes_data, 5)"

@@ -1,0 +1,5 @@
+"0",""
+"0","males <- subset(shoes_data, Gender == ""M"")"
+"0","females <- subset(shoes_data, Gender == ""F"")"
+"0",""
+"0","males"
