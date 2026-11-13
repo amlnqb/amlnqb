@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ----------------------------------------------------------------------
 
 ⫸ Part A — Creating Data Frames.
-
+   
 Question #1
 
 a. Create a vector:

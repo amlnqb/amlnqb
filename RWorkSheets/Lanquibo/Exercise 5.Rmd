@@ -92,7 +92,7 @@ Question #3
 
 scores[1, ] and scores[, "Ben"] both return a result, but one represents a row and the other a column. Run class() on each result. What data structure does R “downgrade” a single row/column of a matrix to, and why do you think R does this automatically?
 
-  When you run class() on both scores[1, ] and scores[, "Ben"], R shows that both results are downgraded to a numeric vector. R does this automatically because a single row or a single column only has one dimension, so it removes the extra matrix structure to make the data simpler and easier to use in other functions.
+  When you run class() on both scores[1, ] and scores[, "Ben"], R shows that both results are downgraded to a numeric vector. R does this automatically because a single row or a single column only has one dimension, so it removes the extra matrix structure to make the data simpler and easier to use in other functions.  
   
   
 Question #4
