@@ -1,0 +1,3 @@
+"0",""
+"0","cols_to_remove <- which(names(emp_all) %in% c(""emp_id"", ""bonus""))"
+"0","head(emp_all[, -cols_to_remove], 3)"

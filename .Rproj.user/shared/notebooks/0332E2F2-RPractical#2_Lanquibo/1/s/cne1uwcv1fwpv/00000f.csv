@@ -1,0 +1,3 @@
+"0",""
+"0","by_salary <- emp_all[order(emp_all$salary, decreasing = TRUE), ]"
+"0","head(by_salary[, c(""name"", ""department"", ""salary"")], 5)"
