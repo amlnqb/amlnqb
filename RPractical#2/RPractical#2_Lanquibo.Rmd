@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-----------------------------------------------
+
 Part A: Importing and Inspecting a CSV A1 Import employees.csv into a data frame named emp_df using read.csv() with stringsAsFactors = FALSE. 
 
 ```{r}
@@ -54,7 +54,7 @@ table(emp_df$department)
 
 ```
 
-----------------------------------------------
+
 Part B: Creating Data Frames  
 
 B1 Create a data frame new_hires with the same column names as emp_df and these three employees: 
@@ -99,7 +99,7 @@ head(emp_all)
 
 ```
 
-----------------------------------------------
+
 Part C: Subsetting: Use emp_all for all questions in this part. Print every result. 
 
 C1 Extract the first 5 rows and only the columns name and salary, using numeric or name indexing.   
@@ -153,7 +153,7 @@ emp_all$salary[emp_all$name == "Mia"]
 
 ```
 
-----------------------------------------------
+
 Part D: Factors  
 
 D1 Convert department and sex in emp_all to factors with factor(). Print levels() of each.   
@@ -202,7 +202,7 @@ for (dept in levels(emp_all$department)) {
 
 ```
 
-----------------------------------------------
+
 Part E: Conditional Statements
 
 E1 Using nested ifelse(), add a column salary_band to emp_all: "High" if salary >= 70000, "Medium" if salary >= 50000 (and below 70000), otherwise "Low". Print table(emp_all$salary_band).  
@@ -265,7 +265,7 @@ print(total)
 
 ```
 
-----------------------------------------------
+
 Part E/F: Conditional Statements [Sorting]
   
 F1 Use sort() to print the 5 highest salary values in decreasing order, and the first 5 employee name values in alphabetical order.   
