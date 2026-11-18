@@ -362,58 +362,103 @@ display: none;
 <p>This is an R Markdown document. Markdown is a simple formatting
 syntax for authoring HTML, PDF, and MS Word documents. For more details
 on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<table style="width:65%;">
-<colgroup>
-<col width="65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Part A: Importing and Inspecting a CSV A1 Import
-employees.csv into a data frame named emp_df using read.csv() with
-stringsAsFactors = FALSE.</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Part B: Creating Data Frames</td>
-</tr>
-<tr class="even">
-<td align="left">B1 Create a data frame new_hires with the same column
-names as emp_df and these three employees:</td>
-</tr>
-<tr class="odd">
-<td align="left">emp_id name department sex age salary years_service
-rating 21 Uma HR F 28 45000 2 3 22 Victor IT M 37 83000 9 4 23 Wen Sales
-F 33 60000 6 5</td>
-</tr>
-<tr class="even">
-<td align="left"><code>r new_hires &lt;- data.frame( emp_id = c(21, 22, 23), name = c(&quot;Uma&quot;, &quot;Victor&quot;, &quot;Wen&quot;), department = c(&quot;HR&quot;, &quot;IT&quot;, &quot;Sales&quot;), sex = c(&quot;F&quot;, &quot;M&quot;, &quot;F&quot;), age = c(28, 37, 33), salary = c(45000, 83000, 60000), years_service = c(2, 9, 6), rating = c(3, 4, 5), stringsAsFactors = FALSE ) new_hires</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><code>##   emp_id   name department sex age salary years_service rating ## 1     21    Uma         HR   F  28  45000             2      3 ## 2     22 Victor         IT   M  37  83000             9      4 ## 3     23    Wen      Sales   F  33  60000             6      5</code></td>
-</tr>
-<tr class="even">
-<td align="left">B2 Use rbind() to append new_hires to emp_df, saving
-the result as emp_all. Print the dimensions of emp_all.</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>r emp_all &lt;- rbind(emp_df, new_hires) dim(emp_all)</code></td>
-</tr>
-<tr class="even">
-<td align="left"><code>## [1] 23  8</code></td>
-</tr>
-<tr class="odd">
-<td align="left">B3 Add a column bonus to emp_all equal to 5% of salary,
-rounded to the nearest whole number.</td>
-</tr>
-<tr class="even">
-<td align="left"><code>r emp_all$bonus &lt;- round(emp_all$salary * 0.05) head(emp_all)</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><code>##   emp_id  name department sex age salary years_service rating bonus ## 1      1 Alice         IT   F  34  72000             8      4  3600 ## 2      2 Bruno      Sales   M  45  58000            12      3  2900 ## 3      3  Chen         IT   M  29  65000             4      5  3250 ## 4      4  Dana         HR   F  52  54000            20      3  2700 ## 5      5  Elif    Finance   F  38  78000            10      4  3900 ## 6      6 Farid      Sales   M  26  42000             2      2  2100</code></td>
-</tr>
-</tbody>
-</table>
+<p>Part A: Importing and Inspecting a CSV A1 Import employees.csv into a
+data frame named emp_df using read.csv() with stringsAsFactors =
+FALSE.</p>
+<pre class="r"><code>emp_df &lt;- read.csv(&quot;employees.csv&quot;, stringsAsFactors = FALSE)</code></pre>
+<p>A2 Display the structure, the first 5 rows, and summary of
+emp_df.</p>
+<pre class="r"><code>str(emp_df)</code></pre>
+<pre><code>## &#39;data.frame&#39;:    20 obs. of  8 variables:
+##  $ emp_id       : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ name         : chr  &quot;Alice&quot; &quot;Bruno&quot; &quot;Chen&quot; &quot;Dana&quot; ...
+##  $ department   : chr  &quot;IT&quot; &quot;Sales&quot; &quot;IT&quot; &quot;HR&quot; ...
+##  $ sex          : chr  &quot;F&quot; &quot;M&quot; &quot;M&quot; &quot;F&quot; ...
+##  $ age          : int  34 45 29 52 38 26 41 33 55 31 ...
+##  $ salary       : int  72000 58000 65000 54000 78000 42000 88000 47000 92000 51000 ...
+##  $ years_service: int  8 12 4 20 10 2 15 6 25 5 ...
+##  $ rating       : int  4 3 5 3 4 2 5 3 4 4 ...</code></pre>
+<pre class="r"><code>head(emp_df, 5)</code></pre>
+<pre><code>##   emp_id  name department sex age salary years_service rating
+## 1      1 Alice         IT   F  34  72000             8      4
+## 2      2 Bruno      Sales   M  45  58000            12      3
+## 3      3  Chen         IT   M  29  65000             4      5
+## 4      4  Dana         HR   F  52  54000            20      3
+## 5      5  Elif    Finance   F  38  78000            10      4</code></pre>
+<pre class="r"><code>summary(emp_df)</code></pre>
+<pre><code>##      emp_id             name        department        sex          age       
+##  Min.   : 1.00   Length   :20   Length   :20   Length   :20   Min.   :25.00  
+##  1st Qu.: 5.75   N.unique :20   N.unique : 4   N.unique : 2   1st Qu.:30.75  
+##  Median :10.50   N.blank  : 0   N.blank  : 0   N.blank  : 0   Median :38.50  
+##  Mean   :10.50   Min.nchar: 3   Min.nchar: 2   Min.nchar: 1   Mean   :38.85  
+##  3rd Qu.:15.25   Max.nchar: 5   Max.nchar: 7   Max.nchar: 1   3rd Qu.:45.75  
+##  Max.   :20.00                                                Max.   :55.00  
+##      salary      years_service       rating   
+##  Min.   :39000   Min.   : 1.00   Min.   :2.0  
+##  1st Qu.:55500   1st Qu.: 5.00   1st Qu.:3.0  
+##  Median :62000   Median : 9.50   Median :4.0  
+##  Mean   :64900   Mean   :11.10   Mean   :3.6  
+##  3rd Qu.:73500   3rd Qu.:15.75   3rd Qu.:4.0  
+##  Max.   :95000   Max.   :25.00   Max.   :5.0</code></pre>
+<p>A3 Print the number of rows and the number of columns of emp_df, and
+the class of every column (hint: sapply(emp_df, class)).</p>
+<pre class="r"><code>nrow(emp_df)</code></pre>
+<pre><code>## [1] 20</code></pre>
+<pre class="r"><code>ncol(emp_df)</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code>sapply(emp_df, class)</code></pre>
+<pre><code>##        emp_id          name    department           sex           age 
+##     &quot;integer&quot;   &quot;character&quot;   &quot;character&quot;   &quot;character&quot;     &quot;integer&quot; 
+##        salary years_service        rating 
+##     &quot;integer&quot;     &quot;integer&quot;     &quot;integer&quot;</code></pre>
+<p>A4 Print the mean salary, the maximum age, and the number of
+employees in each department using table().</p>
+<pre class="r"><code>mean(emp_df$salary)</code></pre>
+<pre><code>## [1] 64900</code></pre>
+<pre class="r"><code>max(emp_df$age)</code></pre>
+<pre><code>## [1] 55</code></pre>
+<pre class="r"><code>table(emp_df$department)</code></pre>
+<pre><code>## 
+## Finance      HR      IT   Sales 
+##       5       4       6       5</code></pre>
+<p>Part B: Creating Data Frames</p>
+<p>B1 Create a data frame new_hires with the same column names as emp_df
+and these three employees:</p>
+<p>emp_id name department sex age salary years_service rating 21 Uma HR
+F 28 45000 2 3 22 Victor IT M 37 83000 9 4 23 Wen Sales F 33 60000 6
+5</p>
+<pre class="r"><code>new_hires &lt;- data.frame(
+  emp_id = c(21, 22, 23),
+  name = c(&quot;Uma&quot;, &quot;Victor&quot;, &quot;Wen&quot;),
+  department = c(&quot;HR&quot;, &quot;IT&quot;, &quot;Sales&quot;),
+  sex = c(&quot;F&quot;, &quot;M&quot;, &quot;F&quot;),
+  age = c(28, 37, 33),
+  salary = c(45000, 83000, 60000),
+  years_service = c(2, 9, 6),
+  rating = c(3, 4, 5),
+  stringsAsFactors = FALSE
+)
+new_hires</code></pre>
+<pre><code>##   emp_id   name department sex age salary years_service rating
+## 1     21    Uma         HR   F  28  45000             2      3
+## 2     22 Victor         IT   M  37  83000             9      4
+## 3     23    Wen      Sales   F  33  60000             6      5</code></pre>
+<p>B2 Use rbind() to append new_hires to emp_df, saving the result as
+emp_all. Print the dimensions of emp_all.</p>
+<pre class="r"><code>emp_all &lt;- rbind(emp_df, new_hires)
+dim(emp_all)</code></pre>
+<pre><code>## [1] 23  8</code></pre>
+<p>B3 Add a column bonus to emp_all equal to 5% of salary, rounded to
+the nearest whole number.</p>
+<pre class="r"><code>emp_all$bonus &lt;- round(emp_all$salary * 0.05)
+head(emp_all)</code></pre>
+<pre><code>##   emp_id  name department sex age salary years_service rating bonus
+## 1      1 Alice         IT   F  34  72000             8      4  3600
+## 2      2 Bruno      Sales   M  45  58000            12      3  2900
+## 3      3  Chen         IT   M  29  65000             4      5  3250
+## 4      4  Dana         HR   F  52  54000            20      3  2700
+## 5      5  Elif    Finance   F  38  78000            10      4  3900
+## 6      6 Farid      Sales   M  26  42000             2      2  2100</code></pre>
 <p>Part C: Subsetting: Use emp_all for all questions in this part. Print
 every result.</p>
 <p>C1 Extract the first 5 rows and only the columns name and salary,
@@ -466,91 +511,114 @@ head(emp_all[, -cols_to_remove], 3)</code></pre>
 name is “Mia”.</p>
 <pre class="r"><code>emp_all$salary[emp_all$name == &quot;Mia&quot;]</code></pre>
 <pre><code>## [1] 56000</code></pre>
-<table style="width:65%;">
-<colgroup>
-<col width="65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Part D: Factors</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Part E: Conditional Statements</td>
-</tr>
-<tr class="even">
-<td align="left">E1 Using nested ifelse(), add a column salary_band to
-emp_all: “High” if salary &gt;= 70000, “Medium” if salary &gt;= 50000
-(and below 70000), otherwise “Low”. Print
-table(emp_all$salary_band).</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>r emp_all$salary_band &lt;- ifelse( emp_all$salary &gt;= 70000, &quot;High&quot;, ifelse(emp_all$salary &gt;= 50000, &quot;Medium&quot;, &quot;Low&quot;) ) table(emp_all$salary_band)</code></td>
-</tr>
-<tr class="even">
-<td align="left"><code>## ##   High    Low Medium ##      8      4     11</code></td>
-</tr>
-<tr class="odd">
-<td align="left">E2 Using ifelse(), add a column level to emp_all:
-“Senior” if years_service &gt;= 8, otherwise “Junior”. Print
-table(emp_all$level).</td>
-</tr>
-<tr class="even">
-<td align="left"><code>r emp_all$level &lt;- ifelse(emp_all$years_service &gt;= 8, &quot;Senior&quot;, &quot;Junior&quot;) table(emp_all$level)</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><code>## ## Junior Senior ##      9     14</code></td>
-</tr>
-<tr class="even">
-<td align="left">E3 Write a function raise_pct(rating) that uses an if /
-else if / else chain and returns 0.10 for a rating of 5, 0.07 for 4,
-0.04 for 3, and 0 otherwise. Use sapply() to apply it to emp_all$rating,
-saving the result as a column raise. Then add new_salary = round(salary
-* (1 + raise)). Print the first 5 rows of name, rating, raise,
-new_salary.</td>
-</tr>
-<tr class="odd">
-<td align="left">``` r raise_pct &lt;- function(rating) { if (rating ==
-5) { return(0.10) } else if (rating == 4) { return(0.07) } else if
-(rating == 3) { return(0.04) } else { return(0) } }</td>
-</tr>
-<tr class="even">
-<td align="left">emp_all<span class="math inline">\(raise &lt;-
-sapply(emp_all\)</span>rating, raise_pct) emp_all<span class="math inline">\(new_salary &lt;- round(emp_all\)</span>salary * (1
-+ emp_all$raise))</td>
-</tr>
-<tr class="odd">
-<td align="left">head(emp_all[, c(“name”, “rating”, “raise”,
-“new_salary”)], 5) ```</td>
-</tr>
-<tr class="even">
-<td align="left"><code>##    name rating raise new_salary ## 1 Alice      4  0.07      77040 ## 2 Bruno      3  0.04      60320 ## 3  Chen      5  0.10      71500 ## 4  Dana      3  0.04      56160 ## 5  Elif      4  0.07      83460</code></td>
-</tr>
-<tr class="odd">
-<td align="left">E4 Using an if / else statement (not ifelse()), compute
-total &lt;- sum(emp_all$new_salary) and print “Budget OK” if the total
-is below 1,600,000, otherwise print “Over budget”. Also print the
-total.</td>
-</tr>
-<tr class="even">
-<td align="left">``` r total &lt;- sum(emp_all$new_salary)</td>
-</tr>
-<tr class="odd">
-<td align="left">if (total &lt; 1600000) { print(“Budget OK”) } else {
-print(“Over budget”) } ```</td>
-</tr>
-<tr class="even">
-<td align="left"><code>## [1] &quot;Budget OK&quot;</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><code>r print(total)</code></td>
-</tr>
-<tr class="even">
-<td align="left"><code>## [1] 1578770</code></td>
-</tr>
-</tbody>
-</table>
+<p>Part D: Factors</p>
+<p>D1 Convert department and sex in emp_all to factors with factor().
+Print levels() of each.</p>
+<pre class="r"><code>emp_all$department &lt;- factor(emp_all$department)
+emp_all$sex &lt;- factor(emp_all$sex)
+
+levels(emp_all$department)</code></pre>
+<pre><code>## [1] &quot;Finance&quot; &quot;HR&quot;      &quot;IT&quot;      &quot;Sales&quot;</code></pre>
+<pre class="r"><code>levels(emp_all$sex)</code></pre>
+<pre><code>## [1] &quot;F&quot; &quot;M&quot;</code></pre>
+<p>D2 Use table() to count employees per department, and make a two-way
+table of department by sex.</p>
+<pre class="r"><code>table(emp_all$department)</code></pre>
+<pre><code>## 
+## Finance      HR      IT   Sales 
+##       5       5       7       6</code></pre>
+<pre class="r"><code>table(emp_all$department, emp_all$sex)</code></pre>
+<pre><code>##          
+##           F M
+##   Finance 2 3
+##   HR      4 1
+##   IT      4 3
+##   Sales   2 4</code></pre>
+<p>D3 Create an ordered factor rating_level from rating using factor()
+with levels = 1:5 and labels = c(“Poor”, “Fair”, “Good”, “Very Good”,
+“Excellent”). Add it to emp_all and print
+table(emp_all$rating_level).</p>
+<pre class="r"><code>emp_all$rating_level &lt;- factor(
+  emp_all$rating,
+  levels = 1:5,
+  labels = c(&quot;Poor&quot;, &quot;Fair&quot;, &quot;Good&quot;, &quot;Very Good&quot;, &quot;Excellent&quot;),
+  ordered = TRUE
+)
+table(emp_all$rating_level)</code></pre>
+<pre><code>## 
+##      Poor      Fair      Good Very Good Excellent 
+##         0         3         7         8         5</code></pre>
+<p>D4 Using a for loop over levels(emp_all$department) and logical
+subsetting, print the mean salary of each department, rounded to the
+nearest whole number.</p>
+<pre class="r"><code>for (dept in levels(emp_all$department)) {
+  dept_mean &lt;- round(mean(emp_all$salary[emp_all$department == dept]))
+  print(paste(dept, &quot;:&quot;, dept_mean))
+}</code></pre>
+<pre><code>## [1] &quot;Finance : 74000&quot;
+## [1] &quot;HR : 48200&quot;
+## [1] &quot;IT : 77571&quot;
+## [1] &quot;Sales : 55333&quot;</code></pre>
+<p>Part E: Conditional Statements</p>
+<p>E1 Using nested ifelse(), add a column salary_band to emp_all: “High”
+if salary &gt;= 70000, “Medium” if salary &gt;= 50000 (and below 70000),
+otherwise “Low”. Print table(emp_all$salary_band).</p>
+<pre class="r"><code>emp_all$salary_band &lt;- ifelse(
+  emp_all$salary &gt;= 70000, &quot;High&quot;,
+  ifelse(emp_all$salary &gt;= 50000, &quot;Medium&quot;, &quot;Low&quot;)
+)
+table(emp_all$salary_band)</code></pre>
+<pre><code>## 
+##   High    Low Medium 
+##      8      4     11</code></pre>
+<p>E2 Using ifelse(), add a column level to emp_all: “Senior” if
+years_service &gt;= 8, otherwise “Junior”. Print
+table(emp_all$level).</p>
+<pre class="r"><code>emp_all$level &lt;- ifelse(emp_all$years_service &gt;= 8, &quot;Senior&quot;, &quot;Junior&quot;)
+table(emp_all$level)</code></pre>
+<pre><code>## 
+## Junior Senior 
+##      9     14</code></pre>
+<p>E3 Write a function raise_pct(rating) that uses an if / else if /
+else chain and returns 0.10 for a rating of 5, 0.07 for 4, 0.04 for 3,
+and 0 otherwise. Use sapply() to apply it to emp_all$rating, saving the
+result as a column raise. Then add new_salary = round(salary * (1 +
+raise)). Print the first 5 rows of name, rating, raise, new_salary.</p>
+<pre class="r"><code>raise_pct &lt;- function(rating) {
+  if (rating == 5) {
+    return(0.10)
+  } else if (rating == 4) {
+    return(0.07)
+  } else if (rating == 3) {
+    return(0.04)
+  } else {
+    return(0)
+  }
+}
+
+emp_all$raise &lt;- sapply(emp_all$rating, raise_pct)
+emp_all$new_salary &lt;- round(emp_all$salary * (1 + emp_all$raise))
+
+head(emp_all[, c(&quot;name&quot;, &quot;rating&quot;, &quot;raise&quot;, &quot;new_salary&quot;)], 5)</code></pre>
+<pre><code>##    name rating raise new_salary
+## 1 Alice      4  0.07      77040
+## 2 Bruno      3  0.04      60320
+## 3  Chen      5  0.10      71500
+## 4  Dana      3  0.04      56160
+## 5  Elif      4  0.07      83460</code></pre>
+<p>E4 Using an if / else statement (not ifelse()), compute total &lt;-
+sum(emp_all$new_salary) and print “Budget OK” if the total is below
+1,600,000, otherwise print “Over budget”. Also print the total.</p>
+<pre class="r"><code>total &lt;- sum(emp_all$new_salary)
+
+if (total &lt; 1600000) {
+  print(&quot;Budget OK&quot;)
+} else {
+  print(&quot;Over budget&quot;)
+}</code></pre>
+<pre><code>## [1] &quot;Budget OK&quot;</code></pre>
+<pre class="r"><code>print(total)</code></pre>
+<pre><code>## [1] 1578770</code></pre>
 <p>Part E/F: Conditional Statements [Sorting]</p>
 <p>F1 Use sort() to print the 5 highest salary values in decreasing
 order, and the first 5 employee name values in alphabetical order.</p>
