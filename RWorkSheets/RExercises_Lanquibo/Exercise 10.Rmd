@@ -1,0 +1,96 @@
+---
+title: 'Exercise 10: R Lab: The Apply Family at Glance.'
+author: "Angel Mary A. Lanquibo"
+date: "2026-11-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+-------------------------------------------------
+Part A — Predict the Output.
+
+
+Question #1
+
+What is the output of each line? Explain briefly with your own words.
+
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+apply(m, 1, sum)
+
+```
+
+a. apply(m, 1, sum)
+
+  apply(m, 1, sum) — I got 9 and 12. Since the 1 stands for rows, I think it just adds across each row of m.
+  
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+
+apply(m, 2, sum)
+
+```
+
+b. apply(m, 2, sum)
+
+  I got 3, 7, and 11. Here the 2 means columns, so to me it adds down each column instead.
+
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+
+class(lapply(1:3, function(i) i^2))
+
+```
+
+c. class(lapply(1:3, function(i) i^2)) 
+
+  This gave "list". Even though it squares 1, 2, and 3, I noticed lapply() always hands back a list, so its class is "list".
+
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+
+sapply(1:3, function(i) i^2)
+
+```
+
+d. sapply(1:3, function(i) i^2)
+  
+  This gave 1, 4, and 9. To me, sapply() makes things simpler and turns the squared numbers into a normal vector.
+
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+
+sapply(c('a', 'bb', 'ccc'), nchar)
+
+```
+
+
+
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+
+mapply(function(x, y) x * y, 1:3, 4:6)
+
+```
+
+
+
+```{r}
+
+m <- matrix(1:6, nrow = 2)
+
+tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+
+```
+
+
+
+

@@ -1,3 +1,0 @@
-"0",""
-"0","emp_all$bonus <- round(emp_all$salary * 0.05)"
-"0","head(emp_all)"
