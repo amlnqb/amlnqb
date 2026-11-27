@@ -196,5 +196,60 @@ mpg_mean_cyl
 ```
 
 
+Part A — Debugging.
+
+Question #5:
+
+Each snippet has a mistake. Find it, explain it in one sentence and fix it.
+
+a. sapply(list(a = 1:3, b = 4:6), mean()).
+
+```{r}
+
+sapply(list(a = 1:3, b = 4:6), mean())
+
+```
+
+  The wrong here I think is putting parentheses after mean(), which calls mean() by itself without any input instead of passing the function name to sapply().
 
 
+b. expected one mean per column of a 3 x 2 matrix, got three numbers apply(matrix(1:6, nrow = 3), 1, mean)
+
+```{r}
+
+apply(matrix(1:6, nrow = 3), 1, mean)
+
+```
+
+  The wrong here I think is using 1 for rows instead of 2 for columns in apply(), which gave three row means instead of two column means.
+
+
+c. wanted the class of each column
+
+```{r}
+
+df <- data.frame(n = c(1, 2), s = c('a', 'b'))
+apply(df, 2, class)
+
+```
+
+  The wrong here I think is using apply() on a data frame, because apply() turns it into a character matrix and makes n show up as "character" instead of keeping each column's true class.
+
+
+Question #6:
+
+Explain in your own words the difference between lapply() and sapply(). When would you choose vapply() instead?
+
+  I see the main difference between lapply() and sapply() as how they format the output: lapply() always returns a list, while sapply() tries to simplify the result into a vector or matrix when possible. I would choose vapply() instead when I want safer code and stricter output control, because it requires me to specify the expected return type and length up front and throws an error if a result does not match.
+
+
+
+A colleague computes group means with lapply(split(x, g), mean). Which function gives the same result in one call, and what does it return?
+
+```{r}
+
+tapply(x, g, mean)
+
+```
+
+  I find that tapply(x, g, mean) gives the same result in one call, and it returns a named vector (or a 1D array) containing the mean of x for each group in g.
