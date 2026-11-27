@@ -71,7 +71,9 @@ sapply(c('a', 'bb', 'ccc'), nchar)
 
 ```
 
-
+e. sapply(c('a', 'bb', 'ccc'), nchar)
+  
+  This gave 1, 2, and 3 (with names 'a', 'bb', and 'ccc'). Since nchar() counts how many letters are in each string, I think sapply() just checks the length of each word and simplifies it into a named vector.
 
 ```{r}
 
@@ -81,13 +83,115 @@ mapply(function(x, y) x * y, 1:3, 4:6)
 
 ```
 
-
+f. mapply(function(x, y) x * y, 1:3, 4:6)
+  
+  This gave 4, 10, and 18. To me, mapply() pairs up the numbers from each vector in order (1 with 4, 2 with 5, and 3 with 6) and multiplies each pair together.
 
 ```{r}
 
 m <- matrix(1:6, nrow = 2)
 
 tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+
+```
+
+g. tapply(c(10, 20, 30, 40), c('u', 'v', 'u', 'v'), sum)
+
+  This gave 40 for u and 60 for v. Since the second vector labels each number as 'u' or 'v', I think tapply() groups them by those labels and adds up each group (10 + 30 for u, and 20 + 40 for v).
+  
+
+Question #2:
+
+Use this data for b.1 and b.2:
+
+scores <- matrix(c(70, 85, 90,
+                   60, 75, 80,
+                   88, 92, 79),
+                 nrow = 3, byrow = TRUE,
+                 dimnames = list(c('Ana', 'Ben', 'Cara'), c('Math', 'Sci', 'Eng')))
+ 
+temps <- list(Mon = c(30, 32, 31), Tue = c(29, 33), Wed = c(31, 34, 35, 30))
+
+```{r}
+
+scores <- matrix(c(70, 85, 90,
+                   60, 75, 80,
+                   88, 92, 79),
+                 nrow = 3, byrow = TRUE,
+                 dimnames = list(c('Ana', 'Ben', 'Cara'), c('Math', 'Sci', 'Eng')))
+
+student_avg <- apply(scores, 1, mean)
+student_avg
+
+subj_high <- apply(scores, 2, max)
+subj_high
+
+best_subj <- apply(scores, 1, function(x) colnames(scores)[which.max(x)])
+best_subj
+
+```
+
+
+b.1 Find (a) each student’s average, (b) each subject’s highest score, and (c) the name of the best subject for each student. Use apply function.
+
+  I used apply(scores, 1, mean) to compute each student's average across rows (MARGIN = 1), giving me 81.67 for Ana, 71.67 for Ben, and 86.33 for Cara. Next, I used apply(scores, 2, max) across columns (MARGIN = 2) to find the highest score in each subject, which is 88 for Math, 92 for Sci, and 90 for Eng. Finally, I used apply(scores, 1, function(x) colnames(scores)[which.max(x)]) to get each student's top subject, which shows that Ana's best subject is "Eng", Ben's best subject is "Eng", and Cara's best subject is "Sci".
+  
+
+```{r}
+
+temps <- list(Mon = c(30, 32, 31), Tue = c(29, 33), Wed = c(31, 34, 35, 30))
+
+temp_mean <- lapply(temps, mean)
+temp_mean
+
+temp_count <- sapply(temps, length)
+temp_count
+
+temp_range <- vapply(temps, range, numeric(2))
+temp_range
+
+```
+
+
+
+b.2 For temps, compute the mean, the number of readings, and the range for each day. Use lapply() for one, sapply() for another, and vapply() for a third, and explain why the range result is a matrix.
+
+  I see that the range result is a matrix because range() returns two numeric values (the minimum and maximum) for each day instead of a single value. When vapply() simplifies equal-length vectors returned across the elements of temps, it arranges those length-2 numeric results into rows (2 rows for min and max) and columns (3 columns for Mon, Tue, and Wed).
+  
+  
+Question #3:
+
+Two loans have principals 1000 and 2000, rates 5% and 4%, and terms 2 and 3 years. Compute the final amount p * (1 + r)^n for each with mapply(). Then rewrite it so that the rate is a fixed 4.5% using MoreArgs.
+
+```{r}
+
+p <- c(1000, 2000)
+r <- c(0.05, 0.04)
+n <- c(2, 3)
+
+
+final_amt <- mapply(function(p, r, n) p * (1 + r)^n, p, r, n)
+final_amt
+
+final_amt_fixed <- mapply(function(p, n, r) p * (1 + r)^n, p, n, MoreArgs = list(r = 0.045))
+final_amt_fixed
+
+```
+
+Question #4:
+
+Use iris dataset. (a) Mean Sepal.Length of iris for each species. (b) The number of cars in mtcars for every combination of cyl and am. (c) Mean mpg per cyl, ignoring missing values (add na.rm = TRUE).
+
+```{r}
+
+sepal_mean <- tapply(iris$Sepal.Length, iris$Species, mean)
+sepal_mean
+
+cyl_am_count <- tapply(mtcars$mpg, list(mtcars$cyl, mtcars$am), length)
+cyl_am_count
+
+mpg_mean_cyl <- tapply(mtcars$mpg, mtcars$cyl, mean, na.rm = TRUE)
+mpg_mean_cyl
 
 ```
 
